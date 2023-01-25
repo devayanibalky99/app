@@ -28,9 +28,9 @@ import ast
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import seaborn as sns
-from zipfile import ZipFile
+
 #load data
-data = zip.read(books.csv)
+cleaned_df = pd.read_csv("./Books Dataset/books_clean.csv")
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Infomation','Book Data Facts','Search Engine'))
