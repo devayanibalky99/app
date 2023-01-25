@@ -37,7 +37,7 @@ file_name = "Books Dataset.zip"
 with ZipFile(Books_Dataset.zip, 'r') as zip:
    
 # extracting all the files
-data = zip.read(books.csv)
+  data = zip.read(books.csv)
 
 #load data
 #cleaned_df = pd.read_csv("./Books Dataset/books_clean.csv")
