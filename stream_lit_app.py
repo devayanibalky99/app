@@ -31,13 +31,13 @@ import seaborn as sns
 from zipfile import ZipFile
 
 # specifying the zip file name
-file_name = "Books Dataset.zip"
+# file_name = "Books Dataset.zip"
   
 # opening the zip file in READ mode
-with ZipFile(Books_Dataset.zip, 'r') as zip:
+# with ZipFile(Books_Dataset.zip, 'r') as zip:
    
 # extracting all the files
-  data = zip.read(books.csv)
+  #data = zip.read(books.csv)
 
 #load data
 #cleaned_df = pd.read_csv("./Books Dataset/books_clean.csv")
