@@ -34,7 +34,7 @@ from zipfile import ZipFile
 file_name = "Books Dataset.zip"
   
 # opening the zip file in READ mode
-with ZipFile(Books Dataset.zip, 'r') as zip:
+with ZipFile(Books_Dataset.zip, 'r') as zip:
    
 # extracting all the files
 data = zip.read(books.csv)
