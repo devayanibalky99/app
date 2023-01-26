@@ -22,7 +22,7 @@ if add_sidebar == 'Project Information':
    
     #project background
     st.subheader('Project Background')
-    st.markdown("<div style='text-align: center;'>This project focuses on building a recommender system for books through content-based filtering algorithm and is named **What's Next, Shakespeare?**. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: justify;'>This project focuses on building a recommender system for books through content-based filtering algorithm and is named **What's Next, Shakespeare?**. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.</div>", unsafe_allow_html=True)
 
     st.subheader('Project Objectives')
     st.write('a)	Explore the best avenue of data collection which will result in a wide variety of books') 
@@ -30,7 +30,7 @@ if add_sidebar == 'Project Information':
     st.write('c)	Evaluate different algorithms and techniques to build the content-based filtering book recommendation system') 
     
     st.subheader('Dataset Introduction')
-    st.write('The book data is obtained from Google Books, a platform maintained by Google, which enables users to conduct web searches across millions of books and magazines published in numerous languages, including rare, out-of-print, and unobtainable volumes outside of the library system. The data was obtained using Books API which enables finding and browsing books on Google Books as well as retrieving comprehensive information about a book, including title, author, description, price, availability etc.')
+    st.markdown("<div style='text-align: justify;'>The book data is obtained from Google Books, a platform maintained by Google, which enables users to conduct web searches across millions of books and magazines published in numerous languages, including rare, out-of-print, and unobtainable volumes outside of the library system. The data was obtained using Books API which enables finding and browsing books on Google Books as well as retrieving comprehensive information about a book, including title, author, description, price, availability etc.</div>", unsafe_allow_html=True)
 
 if add_sidebar == 'Book Data Facts':
     st.set_option('deprecation.showPyplotGlobalUse', False)
