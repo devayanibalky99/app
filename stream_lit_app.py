@@ -22,7 +22,7 @@ if add_sidebar == 'Project Information':
    
     #project background
     st.subheader('Project Background')
-    st.markdown("<div style='text-align: justify;'>This project focuses on building a recommender system for books through content-based filtering algorithm and is named **What's Next, Shakespeare?**. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.</div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: justify;'>This project focuses on building a recommender system for books through content-based filtering algorithm and is named __What's Next, Shakespeare?__. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.</div>", unsafe_allow_html=True)
 
     st.subheader('Project Objectives')
     st.write('a)	Explore the best avenue of data collection which will result in a wide variety of books') 
