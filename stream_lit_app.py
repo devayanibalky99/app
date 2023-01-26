@@ -11,8 +11,7 @@ import seaborn as sns
 import random
 
 #load data
-cleaned_df = pd.read_csv('./books_clean.csv')
-cleaned_df
+cleaned_df = pd.read_csv('https://drive.google.com/file/d/1udhNNiz7PH-fdNUrWNRU0s7869uXg4BD/view?usp=sharing')
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Search Engine'))
