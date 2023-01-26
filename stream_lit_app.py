@@ -7,7 +7,7 @@ st.subheader("Weekly Top Selling Books")
 st.image('book_image.png',use_column_width=True)
 #project background
 st.subheader('Project Background')
-st.write('This project focuses on building a recommender system for books through content-based filtering algorithm and is named "Whats Next, Shakespeare?. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.')
+st.write("This project focuses on building a recommender system for books through content-based filtering algorithm and is named **What's Next, Shakespeare?**. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.")
 
 st.subheader('Project Objectives')
 st.write('Write objectives here!')
