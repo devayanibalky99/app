@@ -8,6 +8,7 @@ import ast
 import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import seaborn as sns
+import random
 
 #load data
 cleaned_df = pd.read_csv('./books_clean.csv')
