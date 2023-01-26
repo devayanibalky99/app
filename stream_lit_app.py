@@ -29,7 +29,7 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import seaborn as sns
 
-load data
+#load data
 cleaned_df = pd.read_csv('books_clean.csv')
 
 #build dashboard
