@@ -11,7 +11,7 @@ import seaborn as sns
 import random
 
 #load data
-cleaned_df = pd.read_csv('https://drive.google.com/file/d/1udhNNiz7PH-fdNUrWNRU0s7869uXg4BD/view?usp=sharing')
+cleaned_df = pd.read_csv('https://drive.google.com/file/d/1udhNNiz7PH-fdNUrWNRU0s7869uXg4BD/view?usp=share_link')
 cleaned_df
 
 #build dashboard
