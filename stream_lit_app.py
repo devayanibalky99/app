@@ -16,7 +16,7 @@ cleaned_df = pd.read_csv('./books_clean.csv')
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Search Engine'))
 
-st.title("What's Next, Shakespeare? :apple:")
+st.title("What's Next, Shakespeare? :books: :apple:")
 
 #condition
 if add_sidebar == 'Project Information':
