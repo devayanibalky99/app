@@ -21,11 +21,12 @@ st.title("What's Next, Shakespeare? :apple:")
 if add_sidebar == 'Project Information':
     st.subheader("Weekly Top Selling Books")
     st.image('book_image.png',use_column_width=True)
-   
+    
     #project background
-    st.subheader('\n Project Background')
+    st.subheader('Project Background')
     st.markdown("<div style='text-align: justify;'>This project focuses on building a recommender system for books through content-based filtering algorithm and is named What's Next, Shakespeare?. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.</div>", unsafe_allow_html=True)
-
+    st.write ('/n') 
+        
     st.subheader('Project Objectives')
     st.write('a)	Explore the best avenue of data collection which will result in a wide variety of books')
     st.write('b)	Determine the key features of relevancy that will yield personalized recommendations to users') 
