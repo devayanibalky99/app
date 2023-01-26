@@ -10,7 +10,7 @@ from matplotlib import rcParams
 import seaborn as sns
 
 #load data
-cleaned_df = pd.read_csv('books_clean.csv')
+cleaned_df = pd.read_csv('./books_clean.csv')
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Search Engine'))
