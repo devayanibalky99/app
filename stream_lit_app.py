@@ -5,18 +5,9 @@ import streamlit as st
 st.title('Book Recommendation System')
 st.subheader("Weekly Top Selling Books")
 st.image('book_image.png',use_column_width=True)
-#table of content
-st.subheader('Table of Content')
-st.write('1. Project background - Description of the Data Science Project')
-st.write('2. Project Objectives')
-st.write('3. Data Modelling')
-st.write('4. Data Interpretation')
-st.write('5. Deployment of Data Product')
-st.write('6. Insights and Conclusion')
-st.write('7. References')
 #project background
 st.subheader('Project Background')
-st.write('Write intro here!')
+st.write('This project focuses on building a recommender system for books through content-based filtering algorithm and is named "Whats Next, Shakespeare?. This system serves the purpose of narrowing down the options available to users by predicting and making suggestions on books that they may be interested in. It will also benefit book sellers by boosting their book sales with the increase in public exposure, gaining more profits in return.')
 
 st.subheader('Project Objectives')
 st.write('Write objectives here!')
