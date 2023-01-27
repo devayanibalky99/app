@@ -9,11 +9,13 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import seaborn as sns
 import random
+import pickle
 
 #load data
 url = 'https://drive.google.com/file/d/1DFDWidDdcrreWmZApEK1-SihTuvSnbyZ/view?usp=sharing'
 path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
 cleaned_df = pd.read_csv(path)
+book_ref_d = cleaed_df
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Book Recommendation Engine'))
@@ -442,3 +444,17 @@ if add_sidebar == 'Book Recommendation Engine':
                         , inplace = True)
         df_filtered = df_filtered.reset_index(drop=True) 
         st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
+        st.write(df.dtypes[author_select])
+
+    # Use pickle to load the pre-trained model.
+    #with open(f'book_kmeans_model.pkl', 'rb') as f:
+        #model = pickle.load(f)
+
+    # Use pickle to load the tfidf vectorizer.
+    #with open(f'book_tfidf.pkl', 'rb') as f:
+        #tfidf_vectorizer = pickle.load(f)
+
+    # Use pickle to load the SVD.
+    #with open(f'book_svd.pkl', 'rb') as f:
+        #svd_model = pickle.load(f)        
+     
