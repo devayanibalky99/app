@@ -16,7 +16,7 @@ path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
 cleaned_df = pd.read_csv(path)
 
 #build dashboard
-add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Search Engine'))
+add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Book Recommendation Engine'))
 
 st.title("What's Next, Shakespeare? :books: :apple:")
 
