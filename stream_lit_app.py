@@ -9,11 +9,16 @@ import matplotlib.pyplot as plt
 from matplotlib import rcParams
 import seaborn as sns
 import random
+import pickle
 
 #load data
 url = 'https://drive.google.com/file/d/1DFDWidDdcrreWmZApEK1-SihTuvSnbyZ/view?usp=sharing'
 path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
 cleaned_df = pd.read_csv(path)
+
+url = 'https://drive.google.com/file/d/1bTeTcCVxjnrLIcIeEm_KvPP5vX8W1mn-/view?usp=sharing'
+path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+book_with_cluster_df = pd.read_csv(path)
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Book Recommendation Engine'))
@@ -401,8 +406,8 @@ if add_sidebar == 'Book Recommendation Engine':
 
     # Create a multi-select widget to select genres
     genre_select = st.multiselect("Which are your top 5 preferred genres?", genre_options, key="genre",max_selections=5)
-
-    # Create a flag to track if the genre select has been changed
+    
+    #Create a flag to track if the genre select has been changed
     genre_select_changed = False
 
     # If the user selects one or more genres:
@@ -433,9 +438,84 @@ if add_sidebar == 'Book Recommendation Engine':
 
     # If author_select option is not empty, display it
     if  author_select:
-        df_filtered.rename(columns = {'volumeInfo.title':'Book_Title', \
-                            'volumeInfo.categories':'Book_Genre', \
-                            'volumeInfo.authors':'Author_Name'}
-                        , inplace = True)
-        df_filtered = df_filtered.reset_index(drop=True) 
-        st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
+        # df_filtered.rename(columns = {'volumeInfo.title':'Book_Title', \
+        #                     'volumeInfo.categories':'Book_Genre', \
+        #                     'volumeInfo.authors':'Author_Name'}
+        #                 , inplace = True)
+        # df_filtered = df_filtered.reset_index(drop=True) 
+        # st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
+
+        import pickle
+
+        # Use pickle to load the pre-trained model.
+        with open(f'book_kmeans_model.pkl', 'rb') as f:
+            model = pickle.load(f)
+
+        # Use pickle to load the tfidf vectorizer.
+        with open(f'book_tfidf.pkl', 'rb') as f:
+            tfidf_vectorizer = pickle.load(f)
+
+        # Use pickle to load the SVD.
+        with open(f'book_svd.pkl', 'rb') as f:
+            svd_model = pickle.load(f)
+
+        # rename the first and second columns
+        book_with_cluster_df.rename(columns={ book_with_cluster_df.columns[0]: "idx" }, inplace = True)
+        book_with_cluster_df.rename(columns={ book_with_cluster_df.columns[1]: "title" }, inplace = True)
+
+        from sklearn.metrics.pairwise import cosine_similarity
+        
+    # Function to recommend books
+        def recommendBooks(genres, authors):
+            # format user preference, trim and join in sentence, then put in a list
+            user_pref = [i.strip() for i in genres] + [i.strip() for i in authors]
+            user_pref_sen = " ".join([i.strip() for i in user_pref])
+            user_pref_sen = [user_pref_sen]
+            
+            # vectorize the user input, fit into SVD
+            tfidf_test_matrix = tfidf_vectorizer.transform(user_pref_sen)
+            test_svd_data = svd_model.transform(tfidf_test_matrix)
+            
+            # predict the book cluster using pre-trained model
+            cluster = model.predict(test_svd_data)[0]
+            
+            # filter the books in the same segments
+            book_in_cluster_df = book_with_cluster_df[book_with_cluster_df['segment']==cluster]
+            
+            # reset the index (for merging later)
+            book_in_cluster_df.reset_index(inplace=True)
+            
+            # a dataframe with index and book title
+            indices_df = pd.DataFrame(book_in_cluster_df['title'])
+            
+            # vectorize the books with same segment
+            tfidf_cluster_matrix = tfidf_vectorizer.transform(book_in_cluster_df['sentence_preprocessed'])
+            
+            # find the cosine similarity of user preference and the books within the same segment
+            similarities = cosine_similarity(tfidf_cluster_matrix, tfidf_test_matrix)
+            
+            # convert similarities numpy array into dataframe
+            similarities_df = pd.DataFrame(similarities, columns=['cos_sim'])
+            
+            # merge books with the cosine similarities df
+            book_similarities_df = pd.concat([indices_df, similarities_df], axis=1)
+            
+            # drop any duplicate books (book with same title)
+            book_similarities_df.drop_duplicates(subset = ['title'], keep = 'first', inplace = True)
+            
+            # get top 10 books with highest cosine similarity
+            top10_book_similarities_df = book_similarities_df.sort_values('cos_sim',ascending = False).head(10)
+            
+            # save the books in a list
+            top10_recommend_books = top10_book_similarities_df['title'].tolist()
+            return top10_recommend_books
+
+        user_genres = genre_select
+        user_authors = author_select
+        user_top10_recommended_books = recommendBooks(user_genres, user_authors)
+        user_top10_recommended_books_df = pd.DataFrame(user_top10_recommended_books)
+        user_top10_recommended_books_df.rename(columns={user_top10_recommended_books_df.columns[0]: "Book Title"}, inplace = True)
+        user_top10_recommended_books_df.sort_values("Book Title",ascending = True, inplace = True)
+        st.write("Here are some recommendations for you.")
+        st.write(user_top10_recommended_books_df)
+# df = df.rename(columns={'old_name': 'new_name'})
