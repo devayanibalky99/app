@@ -45,7 +45,7 @@ if add_sidebar == 'Book Data Facts':
     st.set_option('deprecation.showPyplotGlobalUse', False)
     st.subheader('Book Data Facts')
 
-    st.subheader("Top 15 Categories of Books")
+    st.subheader("Top 10 Categories of Books")
     st.write('Reviewing the categories gives a general overview of the popular genres. The top genres can be used as a measure of the kinds of books that sell well.')
     categories = cleaned_df['volumeInfo.categories'].value_counts()
     categories_df = categories.reset_index() 
@@ -83,10 +83,10 @@ if add_sidebar == 'Book Data Facts':
     for i in ax.patches:
         plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round(i.get_width())),fontsize = 15, color ='black')
     st.pyplot()
-    st.write('Routledge published the most, with 2,324 different books based on our data. Subsequently, Hachette UK and Simon and Schuster ranked second and third with 1,844 and 1,700 books published respectively.')
+    st.write('Hachette UK published the most, with 1,322 different books based on our data. Subsequently, Harper Collins and Simon and Schuster ranked second and third with 1,142 and 1,128 books published respectively.')
 
     st.subheader("Top 15 Publishers based on Amount of Ratings")
-    st.write('This section showcases the publishers that have a large number of ratings on their books. This could be used as a measure to demonstrate how popular the books by these publshers are as many consumers took the time to leave this feedback.')
+    st.write('This section showcases the publishers that have a large number of ratings on their books. This could be used as a measure to demonstrate how popular the books by these publishers are as many consumers took the time to leave this feedback.')
     publisher_ratings_df = cleaned_df.copy()
     publisher_ratings_df = publisher_ratings_df[publisher_ratings_df['volumeInfo.publisher']!='Missing']
     publisher_ratings_df = publisher_ratings_df.replace(['HarperCollins', 'HarperCollins UK'],'Harper Collins')
@@ -106,7 +106,7 @@ if add_sidebar == 'Book Data Facts':
     for i in ax.patches:
         plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round(i.get_width())),fontsize = 15, color ='black')
     st.pyplot()
-    st.write('Observation: Hachette UK is yet again at the top of the chart (previously in 2nd place). It can be gathered that of the many books Hachette UK has released (1,844 books), 1,196 books (over 64%) elicited a rating from buyers. Following that are Penguin and Simon and Schuster that were also in the top 4 of the previous list. In contrast, Routledge that has the most books published cannot be found in the current top 15 list.')
+    st.write('Observation: Hachette UK is again at the top of the chart. It can be gathered that of the many books Hachette UK has released (1,322 books). Following that are Simon and Schuster and Harper Collins that were also in the top 4 of the previous list. In contrast, Routledge that has the most books published cannot be found in the current top 15 list.')
 
     st.subheader("Top Publishers based on both Top Ratings and Ratings Count")
     top_15_publisher_averageRating = publisher_ratings_df[['volumeInfo.publisher', 'volumeInfo.ratingsCount', 'volumeInfo.averageRating']].head(15)
@@ -139,7 +139,7 @@ if add_sidebar == 'Book Data Facts':
     for i in ax.patches:
         plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round(i.get_width())),fontsize = 15, color ='black')
     st.pyplot()
-    st.write("Based on our data, DK has the highest books written, which is 217, followed by Blake Pierce, Library of Congress Copyright Office and Jupiter Kids. 'Missing' category is removed prior to creating this chart to present accurate data.")
+    st.write("Based on our data, DK has the highest books written, which is 130, followed by Blake Pierce, Jupiter Kids and Betty Neels. 'Missing' category is removed prior to creating this chart to present accurate data.")
 
     st.subheader("Book Published Year")
     sns.histplot(cleaned_df
@@ -154,43 +154,9 @@ if add_sidebar == 'Book Data Facts':
     plt.ylabel('No. of Books')
     plt.title('Histogram of Publication Year')
     st.pyplot()
-    st.write('The publication year starts from 1547 up to 2022.From this plot it is observed that most of the publication year starts from the year 2000.')
+    st.write('The publication year starts from 1547 up to 2022. From this plot it is observed that most of the publication year starts from the year 2000.')
 
-    st.subheader("Book Viewability")
-    st.write('The View Status is important for customers to know if they can either have full access to the books or try reading a segment. This will help them decide if they enjoy the book enough for it to be worth their purchase.')
-    view_status = cleaned_df['accessInfo.accessViewStatus'].value_counts()
-    view_status_df = view_status.reset_index() 
-    view_status_df.columns = "Status", ""
-
-    # colors = ['gold', 'purple', 'darkorange']
-    colors = ['palevioletred','mediumpurple', 'orange']
-    explode = (0.03, 0.03, 0.03)
-    view_status_df.groupby(['Status']).sum().plot(kind='pie', y="", autopct='%1.0f%%', colors=colors, explode=explode,
-                                                startangle=30)
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
-    plt.title('View Status', fontsize = 15)
-    st.pyplot()
-    st.write("The pie chart shows the percentages of the books that can be viewed. Majority of the books cannot be viewed (labelled 'NONE') while only 2% are available as full public domain. The books in public domain can legally be used or referenced without permission. Thus, all books under public domain have full viewing access available online.")
-
-    st.subheader("The Viewability of Samples")
-    st.write("The samples have a mix of segments and all the pages available. This variable expands upon the information gathered previously.")
-    sample_only_df = cleaned_df[['accessInfo.accessViewStatus','accessInfo.viewability']]
-    sample_only_df = sample_only_df.set_index('accessInfo.accessViewStatus')
-    sample_only_df = sample_only_df.loc['SAMPLE']
-
-    viewability = sample_only_df['accessInfo.viewability'].value_counts()
-    viewability_df = viewability.reset_index() 
-    viewability_df.columns = "Viewability", ""
-    viewability_df = viewability_df.set_index('Viewability')
-
-    colors = ['palevioletred','mediumpurple']
-    explode = (0.05, 0.05)
-    viewability_df.groupby(['Viewability']).sum().plot(kind='pie', y='', autopct='%1.0f%%', colors=colors,explode=explode)
-    plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
-    plt.title('Viewability of Samples', fontsize = 15)
-    st.pyplot()
-    st.write("The pie chart showcases the viewability of the books previously categorized as 'Samples'. Of these samples, most of the books have a small segment available for viewing while 1% are available in full.")
-
+    
     st.subheader("Book Accessibility")
     st.write("The ePub and PDF access increases consumer’s ability to obtain the books by giving them more avenues to read it.")
     pd.options.mode.chained_assignment = None 
@@ -222,7 +188,7 @@ if add_sidebar == 'Book Data Facts':
     for i in ax.containers:
         ax.bar_label(i,)
     st.pyplot()
-    st.write("50,333 have neither of the formats available while a total of 37,988 have at least one option available. This means a majority of the books (nearly 57%) cannot be viewed as a ePub or PDF. This shows a lack of accessibility to those wanting a digital copy in these formats.")
+    st.write("15,785 have neither of the formats available while a total of 12,392 have at least one option available. This means nearly 43% of books cannot be viewed as a ePub or PDF. This shows a lack of accessibility to those wanting a digital copy in these formats.")
 
     st.subheader("Books for Sale")
     sale_df = cleaned_df[['saleInfo.saleability']].copy()
@@ -241,7 +207,7 @@ if add_sidebar == 'Book Data Facts':
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
     plt.title('Books Available for Sales', fontsize = 12)
     st.pyplot()
-    st.write("Not all books are for sale in Google Books. Based on our data, 22% of books have a price tag that is available for sale online, while 78% are not for sale as partially some books are free of charge.")
+    st.write("Not all books are for sale in Google Books. Based on our data, 32% of books have a price tag that is available for sale online, while 68% are not for sale as partially some books are free of charge.")
 
     st.subheader("Books Price")
     pd.options.mode.chained_assignment = None 
@@ -278,7 +244,7 @@ if add_sidebar == 'Book Data Facts':
     for i in ax.containers:
         ax.bar_label(i,)
     st.pyplot()
-    st.write("74.4% of the books for sale price below RM100, followed by 13.9% that ranged from RM101 to RM200. This shows that the books are sold at an affordable price range that allows more readers to get access to their books of interest. From book price less than RM100, most of the books are within the price range of RM20 to RM45.")
+    st.write("80% of the books for sale price below RM100, followed by 11.2% that ranged from RM101 to RM200. This shows that the books are sold at an affordable price range that allows more readers to get access to their books of interest. From book price less than RM100, most of the books are within the price range of RM20 to RM45.")
 
     st.subheader("Books Costing Less Than RM 100")
     less_100_df = price_df_forsale[price_df_forsale[['saleInfo.retailPrice.amount']] <= 100]
@@ -312,7 +278,7 @@ if add_sidebar == 'Book Data Facts':
     plt.legend(bbox_to_anchor=(1.05, 1), loc='upper left', borderaxespad=0)
     plt.title('Ebook Availability', fontsize = 12)
     st.pyplot()
-    st.write('It is observed that the Ebook availability is 76% false. This means that the books are not available as ebook.')
+    st.write('It is observed that the Ebook availability is 67% false. This means that the books are not available as ebook.')
 
     st.subheader("Top 15 Most Rating Count Books")
     top_fifteen_books = cleaned_df.copy()
@@ -329,7 +295,7 @@ if add_sidebar == 'Book Data Facts':
     for i in gr.patches:
         gr.text(i.get_width() + .05, i.get_y() + 0.5, str(round(i.get_width())), fontsize = 10, color = 'k')
     st.pyplot()
-    st.write("The graphs below showcased the top 15 books with the highest ratings count. From the graphs, it is noticed that 'Saga' has the highest rating count among all the books, with the rating count at least 2.5x more than the other books. There are no significance difference in ratings count if compared between the rest of the books.")
+    st.write("The graphs below showcased the top 15 books with the highest ratings count. From the graphs, it is noticed that 'Heaven is for Real' has the highest rating count among all the books, with the rating count at least 1x more than the other books. There are no significance difference in ratings count if compared between the rest of the books.")
 
     st.subheader("Top 15 Rated Books")
     plt.figure(figsize=(10, 10))
@@ -343,7 +309,7 @@ if add_sidebar == 'Book Data Facts':
     for i in gr.patches:
         gr.text(i.get_width() + .05, i.get_y() + 0.5, str(i.get_width()), fontsize = 10, color = 'k')
     st.pyplot()
-    st.write("Out of the top 15 highest ratings count books, it is observed that 'Unbroken' and 'Saga' have the highest ratings, i.e. 4.5, followed by 'The Immortal Life of Henrietta Lacks','Heaven is for Real','Where the Wild Things are','The Giving Tree' and 'Crazy Love/Forgotten God 2 in 1 Custom Project' that score 4.0. Noted that none of the books above attained 5.0 ratings. This is because the number of ratings is taken into consideration. Thus, books with 5.0 ratings but with only a few number of ratings will not be shown here.")
+    st.write("Out of the top 15 highest ratings count books, it is observed that 'Unbroken' has the highest ratings, i.e. 4.5, followed by 'Heaven is for Real','The Giving Tree', 'The Giver' and 'A People History of the United States' that score 4.0. Noted that none of the books above attained 5.0 ratings. This is because the number of ratings is taken into consideration. Thus, books with 5.0 ratings but with only a few number of ratings will not be shown here.")
 
     st.subheader("Distribution of average_rating")
     cleaned_df['volumeInfo.averageRating'] = cleaned_df['volumeInfo.averageRating'].astype(float)
