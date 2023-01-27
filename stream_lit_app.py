@@ -13,11 +13,11 @@ import pickle
 
 #load data
 url1 = 'https://drive.google.com/file/d/1DFDWidDdcrreWmZApEK1-SihTuvSnbyZ/view?usp=sharing'
-path1 = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+path1 = 'https://drive.google.com/uc?export=download&id='+url1.split('/')[-2]
 cleaned_df = pd.read_csv(path1)
 
 url2 = 'https://drive.google.com/file/d/1bTeTcCVxjnrLIcIeEm_KvPP5vX8W1mn-/view?usp=sharing'
-path2 = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+path2 = 'https://drive.google.com/uc?export=download&id='+url2.split('/')[-2]
 book_with_cluster_df = pd.read_csv(path2)
 
 #build dashboard
