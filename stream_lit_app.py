@@ -445,8 +445,6 @@ if add_sidebar == 'Book Recommendation Engine':
         # df_filtered = df_filtered.reset_index(drop=True) 
         # st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
 
-        import pickle
-
         # Use pickle to load the pre-trained model.
         with open(f'book_kmeans_model.pkl', 'rb') as f:
             model = pickle.load(f)
