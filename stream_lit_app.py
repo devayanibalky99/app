@@ -12,7 +12,7 @@ import random
 
 #load data
 cleaned_df = pd.read_csv('https://drive.google.com/file/d/1DFDWidDdcrreWmZApEK1-SihTuvSnbyZ/view?usp=share_link')
-cleaned_df
+cleaned_df.head (15)
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Search Engine'))
