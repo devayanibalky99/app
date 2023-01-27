@@ -373,44 +373,44 @@ if add_sidebar == 'Book Data Facts':
 
 if add_sidebar == 'Search Engine':
     st.subheader('Start searching for your preferred books here!')
-    #Genre Selection
+#Genre Selection
 
-    # Create a dictionary of data
-    # A total of 78,188 unique rows
-    # st.write(len(options_df2))
-    options_df = cleaned_df[['volumeInfo.title','volumeInfo.categories','volumeInfo.authors']].copy()
-    options_df2=options_df.dropna()
-    options_df2=options_df.dropna(axis=0)
-    options_df2["volumeInfo.title"]= options_df2["volumeInfo.title"].apply(lambda x: x.strip().title())
-    options_df2["volumeInfo.categories"]= options_df2["volumeInfo.categories"].apply(lambda x: x.strip().title())
-    options_df2["volumeInfo.authors"] = options_df2["volumeInfo.authors"].apply(lambda x: x.strip().title())
-    options_df2 = options_df2[options_df2["volumeInfo.title"] != 'Missing']
-    options_df2 = options_df2[options_df2["volumeInfo.categories"] != 'Missing']
-    options_df2 = options_df2[options_df2["volumeInfo.authors"] != 'Missing']
+# Create a dictionary of data
+# A total of 78,188 unique rows
+# st.write(len(options_df2))
+options_df = cleaned_df[['volumeInfo.title','volumeInfo.categories','volumeInfo.authors']].copy()
+options_df2=options_df.dropna()
+options_df2=options_df.dropna(axis=0)
+options_df2["volumeInfo.title"]= options_df2["volumeInfo.title"].apply(lambda x: x.strip().title())
+options_df2["volumeInfo.categories"]= options_df2["volumeInfo.categories"].apply(lambda x: x.strip().title())
+options_df2["volumeInfo.authors"] = options_df2["volumeInfo.authors"].apply(lambda x: x.strip().title())
+options_df2 = options_df2[options_df2["volumeInfo.title"] != 'Missing']
+options_df2 = options_df2[options_df2["volumeInfo.categories"] != 'Missing']
+options_df2 = options_df2[options_df2["volumeInfo.authors"] != 'Missing']
 
 
 
-    # Create an empty DataFrame to store filtered data
-    df_filtered = pd.DataFrame()
+# Create an empty DataFrame to store filtered data
+df_filtered = pd.DataFrame()
 
-    # Initialize the author_select variable
-    author_select = None
+# Initialize the author_select variable
+author_select = None
 
-    # Get a list of 15 unique genre options from the original DataFrame
-    options_df2.sort_values(by=['volumeInfo.categories'], ascending=True, inplace = True)
-    genre_options = options_df2['volumeInfo.categories'].unique()
-    # genre_options = np.random.choice(genre_full_options,15,replace=False)
+# Get a list of 15 unique genre options from the original DataFrame
+options_df2.sort_values(by=['volumeInfo.categories'], ascending=True, inplace = True)
+genre_options = options_df2['volumeInfo.categories'].unique()
+# genre_options = np.random.choice(genre_full_options,15,replace=False)
 
-    # Create a multi-select widget to select genres
-    genre_select = st.multiselect("Which are your top 5 preferred genres?", genre_options, key="genre",max_selections=5)
+# Create a multi-select widget to select genres
+genre_select = st.multiselect("Which are your top 5 preferred genres?", genre_options, key="genre",max_selections=5)
 
-    # Create a flag to track if the genre select has been changed
-    genre_select_changed = False
+# Create a flag to track if the genre select has been changed
+genre_select_changed = False
 
-    # If the user selects one or more genres:
-    if genre_select:
-        # Set the flag to indicate the genre select has been changed
-        genre_select_changed = True
+# If the user selects one or more genres:
+if genre_select:
+    # Set the flag to indicate the genre select has been changed
+    genre_select_changed = True
     
     # Filter the original DataFrame to only include rows with the selected genres
     options_df2.sort_values(by=['volumeInfo.authors'], ascending=True, inplace = True)
@@ -422,10 +422,10 @@ if add_sidebar == 'Search Engine':
     # Create a multi-select widget to select authors
     author_select = st.multiselect("Which are your preferred author(s)?", author_options, key="author",max_selections=5)
 
-    # If the user selects one or more authors, but the genre select has not been changed:
-    if author_select and not genre_select_changed:
-        # Filter the original DataFrame to only include rows with the selected authors
-        df_filtered = options_df2[options_df2['volumeInfo.authors'].isin(author_select)]
+# If the user selects one or more authors, but the genre select has not been changed:
+if author_select and not genre_select_changed:
+    # Filter the original DataFrame to only include rows with the selected authors
+    df_filtered = options_df2[options_df2['volumeInfo.authors'].isin(author_select)]
     
     # Get a list of unique genre options from the filtered DataFrame
     genre_options = df_filtered['volumeInfo.categories'].unique()
@@ -433,11 +433,11 @@ if add_sidebar == 'Search Engine':
     # Create a multi-select widget to select genres
     genre_select = st.multiselect("Which are your top 5 preferred genres?", genre_options, key="genre",max_selections=5)
 
-    # If author_select option is not empty, display it
-    if  author_select:
-        df_filtered.rename(columns = {'volumeInfo.title':'Book_Title', \
-                            'volumeInfo.categories':'Book_Genre', \
-                            'volumeInfo.authors':'Author_Name'}
-                        , inplace = True)
-        df_filtered = df_filtered.reset_index(drop=True) 
+# If author_select option is not empty, display it
+if  author_select:
+    df_filtered.rename(columns = {'volumeInfo.title':'Book_Title', \
+                        'volumeInfo.categories':'Book_Genre', \
+                        'volumeInfo.authors':'Author_Name'}
+                    , inplace = True)
+    df_filtered = df_filtered.reset_index(drop=True) 
     st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
