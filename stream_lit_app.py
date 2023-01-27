@@ -13,7 +13,7 @@ import random
 #load data
 url = 'https://drive.google.com/file/d/1DFDWidDdcrreWmZApEK1-SihTuvSnbyZ/view?usp=sharing'
 path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
-df = pd.read_csv(path)
+cleaned_df = pd.read_csv(path)
 
 #build dashboard
 add_sidebar=st.sidebar.selectbox('Navigation', ('Project Information','Book Data Facts','Book Recommendation Engine'))
