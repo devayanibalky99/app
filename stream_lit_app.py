@@ -35,9 +35,6 @@ if add_sidebar == 'Project Information':
     st.write('2) Determine the key features of relevancy that will yield personalized recommendations to users') 
     st.write('3) Evaluate different algorithms and techniques to build the content-based filtering book recommendation system') 
     st.write('4) Successfully deploy an easily accessible webapp for the created model') 
-    
-    st.subheader('Dataset Introduction')
-    st.markdown("<div style='text-align: justify;'>The book data is obtained from Google Books, a platform maintained by Google, which enables users to conduct web searches across millions of books and magazines published in numerous languages, including rare, out-of-print, and unobtainable volumes outside of the library system. The data was obtained using Books API which enables finding and browsing books on Google Books as well as retrieving comprehensive information about a book, including title, author, description, price, availability etc.</div>", unsafe_allow_html=True)
 
 if add_sidebar == 'Book Data Facts':
     st.set_option('deprecation.showPyplotGlobalUse', False)
@@ -442,16 +439,3 @@ if add_sidebar == 'Book Recommendation Engine':
                         , inplace = True)
         df_filtered = df_filtered.reset_index(drop=True) 
         st.write(df_filtered[df_filtered['Author_Name'].isin(author_select)])
-
-    # Use pickle to load the pre-trained model.
-    #with open(f'book_kmeans_model.pkl', 'rb') as f:
-        #model = pickle.load(f)
-
-    # Use pickle to load the tfidf vectorizer.
-    #with open(f'book_tfidf.pkl', 'rb') as f:
-        #tfidf_vectorizer = pickle.load(f)
-
-    # Use pickle to load the SVD.
-    #with open(f'book_svd.pkl', 'rb') as f:
-        #svd_model = pickle.load(f)        
-     
